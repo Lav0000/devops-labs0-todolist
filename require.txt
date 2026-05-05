@@ -1,0 +1,5 @@
+Khanh + Duc : 
+1. Run source todo list ( FE + BE ) on VM onpremis o r Ec2 etc ...
+2. Apply TLS 
+3. Write dockerfile push registry (docker hub, ecr, harbor etc ...)
+4. Tìm hiểu về ECS (giống và khác nhau giữa docker)

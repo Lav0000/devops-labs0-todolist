@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico" />
+
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO Meta Tags -->
+    <title>Todo List — Manage Your Tasks Efficiently</title>
+    <meta name="title" content="Todo List — Manage Your Tasks Efficiently" />
+    <meta
+      name="description"
+      content="A fast, clean, and intuitive Todo List application. Add, complete, filter and delete tasks with ease. Stay organized and productive every day."
+    />
+    <meta name="keywords" content="todo, task manager, productivity, todo list, task list" />
+    <meta name="author" content="LG CNS" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Todo List — Manage Your Tasks Efficiently" />
+    <meta
+      property="og:description"
+      content="A fast, clean, and intuitive Todo List application. Add, complete, filter and delete tasks with ease."
+    />
+    <meta property="og:image" content="/og-image.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Todo List — Manage Your Tasks Efficiently" />
+    <meta
+      name="twitter:description"
+      content="A fast, clean, and intuitive Todo List application. Add, complete, filter and delete tasks with ease."
+    />
+    <meta name="twitter:image" content="/og-image.png" />
+
+    <!-- Theme Color for Mobile Browsers -->
+    <meta name="theme-color" content="#1a1a2e" />
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Preloader Styles (inline so it shows immediately before JS loads) -->
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background: #1a1a2e;
+      }
+
+      /* ── Preloader ── */
+      #preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.25rem;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+      }
+
+      #preloader.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .preloader-spinner {
+        width: 52px;
+        height: 52px;
+        border: 4px solid rgba(255, 255, 255, 0.12);
+        border-top-color: #e94560;
+        border-radius: 50%;
+        animation: spin 0.85s linear infinite;
+      }
+
+      .preloader-text {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.95rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* ── App container hidden until Vue mounts ── */
+      #app {
+        opacity: 0;
+        transition: opacity 0.35s ease;
+      }
+
+      #app.mounted {
+        opacity: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Preloader shown immediately while JS bundles load -->
+    <div id="preloader" role="status" aria-label="Loading application">
+      <div class="preloader-spinner"></div>
+      <p class="preloader-text">Loading Todo List…</p>
+    </div>
+
+    <!-- Vue 3 mount target -->
+    <div id="app" class="container"></div>
+
+    <!-- Fade-in app and hide preloader once Vue has mounted -->
+    <script>
+      (function () {
+        // Wait for the custom event fired by main.ts after app.mount()
+        window.addEventListener('app:mounted', function () {
+          var app = document.getElementById('app');
+          var preloader = document.getElementById('preloader');
+          if (app) app.classList.add('mounted');
+          if (preloader) preloader.classList.add('hidden');
+        });
+
+        // Fallback: hide preloader after 5 s even if event never fires
+        setTimeout(function () {
+          var preloader = document.getElementById('preloader');
+          if (preloader && !preloader.classList.contains('hidden')) {
+            preloader.classList.add('hidden');
+          }
+          var app = document.getElementById('app');
+          if (app && !app.classList.contains('mounted')) {
+            app.classList.add('mounted');
+          }
+        }, 5000);
+      })();
+    </script>
+
+    <!-- Main Vue 3 + Vite entry point -->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

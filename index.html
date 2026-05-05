@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO -->
+    <title>Todo List — LG CNS Lab 2</title>
+    <meta name="title" content="Todo List — LG CNS Lab 2" />
+    <meta name="description" content="A simple Todo List app hosted on AWS S3 Static Website Hosting." />
+    <meta name="author" content="LG CNS" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Todo List — LG CNS Lab 2" />
+    <meta property="og:description" content="A simple Todo List app hosted on AWS S3." />
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#0f1117" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- App Shell -->
+    <div id="app">
+
+      <!-- Header -->
+      <header class="site-header">
+        <div class="header-inner">
+          <div class="logo">
+            <img src="assets/logo.svg" alt="Logo" class="logo-img" />
+            <span class="logo-text">TodoApp</span>
+          </div>
+          <div class="header-badge">☁️ Hosted on AWS S3</div>
+        </div>
+      </header>
+
+      <!-- Hero -->
+      <section class="hero">
+        <div class="badge">LG CNS · Lab 2 — S3 Static Website Hosting</div>
+        <h1 class="hero-title">My <span class="gradient-text">Todo List</span></h1>
+        <p class="hero-sub">Stay organized. Stay productive. Powered by Amazon S3.</p>
+      </section>
+
+      <!-- Main Content -->
+      <main class="main">
+
+        <!-- Stats -->
+        <div class="stats" id="stats">
+          <div class="stat-card">
+            <div class="stat-num" id="stat-total">0</div>
+            <div class="stat-label">Total</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num green" id="stat-done">0</div>
+            <div class="stat-label">Completed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num red" id="stat-pending">0</div>
+            <div class="stat-label">Pending</div>
+          </div>
+        </div>
+
+        <!-- Composer -->
+        <div class="composer">
+          <input
+            id="todo-input"
+            type="text"
+            class="todo-input"
+            placeholder="Add a new task… press Enter or click Add"
+            maxlength="200"
+            autocomplete="off"
+          />
+          <button id="add-btn" class="btn btn-primary">+ Add</button>
+        </div>
+
+        <!-- Filter bar -->
+        <div class="filter-bar">
+          <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="pending">Pending</button>
+            <button class="filter-btn" data-filter="completed">Completed</button>
+          </div>
+          <button id="delete-all-btn" class="btn btn-danger">🗑 Delete All</button>
+        </div>
+
+        <!-- Todo list -->
+        <div id="todo-list" class="todo-list"></div>
+
+      </main>
+
+      <!-- Footer -->
+      <footer class="site-footer">
+        <p>Built for <strong>LG CNS</strong> · AWS Lab 2 — S3 Static Website Hosting</p>
+      </footer>
+
+    </div><!-- /#app -->
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast" role="alert"></div>
+
+    <!-- App Script -->
+    <script src="js/app.js"></script>
+  </body>
+</html>
