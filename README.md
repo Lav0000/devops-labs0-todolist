@@ -4,42 +4,39 @@
   <img src="./demo.png" />
 </div>
 
-# Setup
-
-In`fronend` folder run:
-```
-docker compose up -d --build
-```
-
-Next, in `backend` folder, create `.env` by copying content from `.env.example`:
-```
-cp .env.example .env
-```
-Then start backend:
-```
-docker compose up -d --build
-```
-Then `exec` into backend to migrate DB:
-```
-docker compose exec app yarn migrate:deploy
-```
-Finally open browser at `http://localhost:5173`
-
 # Local development
-Run `yarn install` (or `npm install`) for both `backend` and `frontend`
 
-Next, in `backend` folder, create `.env` by copying content from `.env.example`, update DB credentials to match your machine
+Run `yarn install` (or `npm install`) for both `backend` and `frontend`.
 
-Then start backend:
+The backend expects a MySQL server to already be running outside this repo and exposed on `localhost:3307`. The current backend env is configured to connect with:
+
+```bash
+DB_HOST=localhost
+DB_PORT=3307
+DB_USER=kali
+DB_PASSWORD=kali
+DB_NAME=k8s_ingress
 ```
-yarn start:dev
-```
-To migrate DB for backend run:
-```
+
+Then run the backend migrations:
+
+```bash
+cd backend
 yarn migrate:deploy
 ```
-Next start frontend:
+
+Start the backend:
+
+```bash
+cd backend
+yarn start:dev
 ```
+
+Start the frontend:
+
+```bash
+cd frontend
 yarn dev
 ```
-Finally open browser at `http://localhost:5173`
+
+Finally open `http://localhost:5173`.

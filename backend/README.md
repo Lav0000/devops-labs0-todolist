@@ -32,6 +32,12 @@
 $ yarn install
 ```
 
+## Database
+
+This backend uses Prisma with `DATABASE_URL` from `backend/.env`.
+
+For local development, the app is configured to connect to MySQL at `localhost:3307`. Make sure your MySQL Docker container is already running and exposed on that host port before starting the app or running Prisma migrations.
+
 ## Running the app
 
 ```bash
@@ -43,6 +49,12 @@ $ yarn run start:dev
 
 # production mode
 $ yarn run start:prod
+```
+
+## Prisma migration
+
+```bash
+$ yarn migrate:deploy
 ```
 
 ## Test
