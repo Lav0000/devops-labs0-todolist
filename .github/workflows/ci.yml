@@ -1,50 +1,46 @@
-name: Build Check
+name: CI
 
 on:
   push:
     branches:
-      - CICD
+      - main
 
   pull_request:
-    branches:
-      - CICD
 
 jobs:
 
-  build-check:
-
+  backend-test:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: backend
+
     steps:
+      - uses: actions/checkout@v4
 
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: yarn
-          cache-dependency-path: |
-            backend/yarn.lock
-            frontend/yarn.lock
 
-      # Backend
+      - run: yarn install --frozen-lockfile
 
-      - name: Install backend dependencies
-        working-directory: backend
-        run: yarn install --frozen-lockfile
+      - run: yarn build
 
-      - name: Build backend
-        working-directory: backend
-        run: yarn build
+  frontend-build:
+    runs-on: ubuntu-latest
 
-      # Frontend
-
-      - name: Install frontend dependencies
+    defaults:
+      run:
         working-directory: frontend
-        run: yarn install --frozen-lockfile
 
-      - name: Build frontend
-        working-directory: frontend
-        run: yarn build
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: yarn install --frozen-lockfile
+
+      - run: yarn build
