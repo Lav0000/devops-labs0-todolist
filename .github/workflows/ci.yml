@@ -3,9 +3,11 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - CICD
 
   pull_request:
+    branches:
+      - CICD
 
 jobs:
 
