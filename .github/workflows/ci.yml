@@ -44,3 +44,17 @@ jobs:
       - run: yarn install --frozen-lockfile
 
       - run: yarn build
+
+  docker-build-backend:
+    needs: backend-test
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build backend image
+        run: |
+          docker build \
+            -t todolist-backend:${{ github.sha }} \
+            ./backend
