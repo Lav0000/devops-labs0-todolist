@@ -58,3 +58,17 @@ jobs:
           docker build \
             -t todolist-backend:${{ github.sha }} \
             ./backend
+
+  docker-build-frontend:
+    needs: frontend-build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build frontend image
+        run: |
+          docker build \
+            -t todolist-frontend:${{ github.sha }} \
+            ./frontend
