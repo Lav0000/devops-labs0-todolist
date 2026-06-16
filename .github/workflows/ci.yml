@@ -1,4 +1,4 @@
-name: First CI Pipeline
+name: Build Check
 
 on:
   push:
@@ -10,7 +10,8 @@ on:
       - CICD
 
 jobs:
-  explore-runner:
+
+  build-check:
 
     runs-on: ubuntu-latest
 
@@ -19,19 +20,27 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Show GitHub context
-        run: |
-          echo "Repository: $GITHUB_REPOSITORY"
-          echo "Branch: $GITHUB_REF"
-          echo "Actor: $GITHUB_ACTOR"
-          echo "Commit: $GITHUB_SHA"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-      - name: Show current directory
-        run: |
-          pwd
-          ls -lah
+      # Backend
 
-      - name: Show Docker version
-        run: |
-          docker --version
-          docker compose version
+      - name: Install backend dependencies
+        working-directory: backend
+        run: yarn install --frozen-lockfile
+
+      - name: Build backend
+        working-directory: backend
+        run: yarn build
+
+      # Frontend
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: yarn install --frozen-lockfile
+
+      - name: Build frontend
+        working-directory: frontend
+        run: yarn build
